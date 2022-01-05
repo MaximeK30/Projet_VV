@@ -1,6 +1,6 @@
 # Projet Python : Vasanthakumar & Velut
 
-***We explain everything with details in our pdf which you can read in the github: https://github.com/MaximeK30/Projet_VV***
+***We explain everything with details in our pdf which you can read in the github: https://github.com/MaximeK30/Projet_VV/blob/main/projet_python_Vasanthakumar_Velut.pdf***
 
 During this project, we worked in the following dataset : https://archive.ics.uci.edu/ml/datasets/Drug+consumption+%28quantified%29#
 
