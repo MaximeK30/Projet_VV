@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %} Drug Detector</title>
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro);
+
+        @font-face {
+            font-family: 'Potland'; /*a name to be used later*/
+            src: url("{{ url_for('static', filename='Potland.ttf')}}"); /*URL to font*/
+        }
+
+        @font-face {
+            font-family: 'Sweetleaf'; /*a name to be used later*/
+            src: url("{{ url_for('static', filename='Sweetleaf.ttf')}}"); /*URL to font*/
+        }
+
+        body {
+            background: #444; 
+            color: #ffffff;
+            font: 400 17px/2em 'Source Sans Pro', sans-serif;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        h1 {
+            /* margin-left: 90px; */
+            margin-top: 40px;
+            margin-bottom: 10px;
+            color: rgb(255, 255, 255);
+            font: 400 65px/2em 'Potland', sans-serif;
+        }
+
+
+        h2 {
+            margin-top: 60px;
+            margin-bottom: 10px;
+            color: rgb(255, 255, 255);
+            font: 400 35px/2em 'Sweetleaf', sans-serif;
+        }
+
+        .primary-btn {
+            margin: 100px;
+            color: white;
+        }
+
+        .hover_bkgr_fricc{
+            display: block;
+        }
+        .hover_bkgr_fricc{
+            background:rgba(0,0,0,.4);
+            cursor:pointer;
+            display:none;
+            height:100%;
+            position:fixed;
+            text-align:center;
+            top:0;
+            width:100%;
+            z-index:10000;
+        }
+        .hover_bkgr_fricc .helper{
+            display:inline-block;
+            height:100%;
+            vertical-align:middle;
+        }
+        .hover_bkgr_fricc > div {
+            background-color: #fff;
+            box-shadow: 10px 10px 60px #555;
+            display: inline-block;
+            height: auto;
+            max-width: 551px;
+            min-height: 100px;
+            vertical-align: middle;
+            width: 60%;
+            position: relative;
+            border-radius: 8px;
+            padding: 15px 5%;
+        }
+        .popupCloseButton {
+            background-color: #aaa;
+            border: 3px solid #999;
+            border-radius: 50px;
+            cursor: pointer;
+            display: inline-block;
+            font-family: arial;
+            font-weight: bold;
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 25px;
+            line-height: 30px;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+        }
+        .popupCloseButton:hover {
+            background-color: #ccc;
+        }
+        .trigger_popup_fricc {
+            cursor: pointer;
+            font-size: 30px;
+            margin: 20px;
+            display: inline-block;
+            font-weight: bold;
+            position: absolute;
+            margin-left: 350px;
+            margin-top: -67px;
+            clear: none; 
+        }
+
+        p {
+            color: black;
+        }
+
+        .a {
+            margin-top: 60px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="hover_bkgr_fricc" id="hover_div">
+        <span class="helper"></span>
+        <div>
+            <div class="popupCloseButton">&times;</div>
+            <p id="para"></p>
+        </div>
+    </div>
+    <h1>Results</h1>
+    <div>
+        {% if proba[0] > 55 %}
+        <h2 id="heroin" style="color: red;">You are likely to be a Heroin user at {{proba[0]}} %</h2>
+        {% else %}
+        <h2 id="heroin" style="color: greenyellow;">You are likely to be a Heroin user at {{proba[0]}} %</h2>
+        {% endif %}
+        <a class="trigger_popup_fricc" id="hero_tooltip">?</a>
+    </div>
+    <div>
+        {% if proba[1] > 55 %}
+        <h2 id="ecstasy" style="color: red;">You are likely to be an Ecstasy user at {{proba[1]}} %</h2>
+        {% else %}
+        <h2 id="ecstasy" style="color: greenyellow;">You are likely to be an Ecstasy user at {{proba[1]}} %</h2>
+        {% endif %}
+        <a class="trigger_popup_fricc" id="ecsta_tooltip">?</a>
+    </div>
+    <div>
+        {% if proba[2] > 55 %}
+        <h2 id="benzo" style="color: red;">You are likely to be a Benzo user at {{proba[2]}} %</h2>
+        {% else %}
+        <h2 id="benzo" style="color: greenyellow;">You are likely to be a Benzo user at {{proba[2]}} %</h2>
+        {% endif %}
+        <a class="trigger_popup_fricc" id="benzo_tooltip">?</a>
+    </div>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='drug_desc.js' )}}"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.0/jquery.fancybox.min.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.0/jquery.fancybox.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.0/jquery.fancybox.min.css">
+    <div class="a">
+        <a data-fancybox="dataset" class="primary-btn" href="{{ url_for('static', filename='data1.png' )}}">More informations about the dataset</a>
+        <a data-fancybox="model" class="primary-btn" href="{{ url_for('static', filename='model1.png' )}}">More informations about the model</a>
+    </div>
+    <div class="hidden">
+        <a data-fancybox="dataset" class="primary-btn" href="{{ url_for('static', filename='data2.png' )}}"></a>
+        <a data-fancybox="dataset" class="primary-btn" href="{{ url_for('static', filename='data3.png' )}}"></a>
+        <a data-fancybox="model" class="primary-btn" href="{{ url_for('static', filename='model2.png' )}}"></a>
+        <a data-fancybox="model" class="primary-btn" href="{{ url_for('static', filename='model3.png' )}}"></a>
+        <a data-fancybox="model" class="primary-btn" href="{{ url_for('static', filename='model4.png' )}}"></a>
+        <a data-fancybox="model" class="primary-btn" href="{{ url_for('static', filename='model5.png' )}}"></a>
+        <a data-fancybox="model" class="primary-btn" href="{{ url_for('static', filename='model6.png' )}}"></a>
+    </div>
+</body>
+</html>

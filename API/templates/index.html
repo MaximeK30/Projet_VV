@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for field in fields %}
+            {% if field['type'] == 'input' %}
+                <input type="text" class="form-control" id="{{field['field'].lower()}}" name="{{field['field']}}" value="{{field['value']}}">
+            {% elif field['type'] == 'select' %}
+                <div class="select-box">
+                    <label for="select-box-{{field['field']}}" class="label select-box1"><span class="label-desc">{{field['field']}}</span></label>
+                    <select name="{{field['field']}}" class="select" id="select-box-{{field['field']}}">
+                        <option value="null">{{field['field']}}</option>
+                        {% for key, value in field['list'].items() %}
+                            {% if field['value'] != value %}
+                                <option value="{{key.lower()}}">{{value}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                    {% if field['tool-tip'] == True %}
+                        <a class="trigger_popup_fricc" id="{{field['field']}}">?</a>
+                    {% endif %}
+                </div>
+            {% endif %}
+    
+        <br>  
+    {% endfor %}
+{% endblock %}
