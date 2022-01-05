@@ -1,4 +1,4 @@
-# READ ME
+# Projet Python : Vasanthakumar & Velut
 
 ***We explain everything with details in our pdf which you can read in the github: https://github.com/MaximeK30/Projet_VV***
 
